@@ -1,0 +1,64 @@
+<app-header></app-header>
+
+<div class="p-grid dashboard-page">
+    <div class="p-col-4 p-text-center">
+        <p-card [routerLink]="['/admin/manage-subadmin']">
+            <h1>Subadmins</h1>
+            <h3>{{dashboardData ? dashboardData.subadminCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-4 p-text-center">
+        <p-card [routerLink]="['/admin/manage-si']">
+            <h1>SIs</h1>
+            <h3>{{dashboardData ? dashboardData.siCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-4 p-text-center">
+        <p-card>
+            <h1>Customers</h1>
+            <h3>{{dashboardData ? dashboardData.userCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-4 p-text-center">
+        <p-card [routerLink]="['/admin/manage-cameras']">
+            <h1>Cameras</h1>
+            <h3>{{dashboardData ? dashboardData.cameraCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-4 p-text-center">
+        <p-card>
+            <h1>DVRs</h1>
+            <h3>{{dashboardData ? dashboardData.dvrCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-4 p-text-center">
+        <p-card>
+            <h1>Plans</h1>
+            <h3>{{dashboardData ? dashboardData.planCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-4 p-text-center">
+        <p-card>
+            <h1>New Cases</h1>
+            <h3>{{dashboardData ? dashboardData.newCaseCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-4 p-text-center">
+        <p-card>
+            <h1>Open Cases</h1>
+            <h3>{{dashboardData ? dashboardData.newCaseCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-4 p-text-center">
+        <p-card>
+            <h1>Closed Cases</h1>
+            <h3>{{dashboardData ? dashboardData.newCaseCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-4 p-text-center">
+        <p-card>
+            <h1>Earnings</h1>
+            <h3>0</h3>
+        </p-card>
+    </div>
+</div>

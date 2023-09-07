@@ -1,0 +1,167 @@
+<app-header></app-header>
+
+<div class="dashboard-page">
+    <div class="p-grid">
+        <div class="p-col-12">
+            <p-card>
+                <p-steps [model]="steps" [readonly]="true"></p-steps>
+                
+                <form *ngIf="currStep == 'si'" style="width: 100%; padding: 2% 5%;" [formGroup]="siForm" (submit)="submitSIForm(siForm.value)">
+                    <div class="p-field p-d-inline-block p-col-12">
+                        <span class="p-float-label">
+                            <p-autoComplete formControlName="selectedSI" id="selectedSI" [showEmptyMessage]="true" [suggestions]="filteredSI" (completeMethod)="filterSI($event)" field="name" [minLength]="1"></p-autoComplete>
+                            <label class="required" for="selectedSI">Select SI</label>
+                        </span>
+                    </div>
+                    <div class="p-col-12 p-md-6 p-d-inline-block">
+                        <span *ngIf="siFormSubmitted && siFormControls.selectedSI.errors && siFormControls.selectedSI.errors.required" class="p-error">*SI is required</span>
+                    </div>
+                    <div class="p-col-6 p-d-inline-block p-text-right">
+                        <!-- <button pButton pRipple class="p-button-outlined p-button-secondary" label="Cancel" type="button" (click)="showAddSIDialog = false;" style="width: auto;"></button> -->
+                        <button pButton pRipple class="p-button-outlined" type="submit" label="Next" icon="pi pi-angle-right" iconPos="right"></button>
+                    </div>
+                </form>
+
+                <form *ngIf="currStep == 'pi'" style="width: 100%; padding: 2% 5%;" [formGroup]="piForm" (submit)="submitPIForm(piForm.value)" id="piForm">
+                    <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                        <span class="p-float-label">
+                            <input type="text" id="fname" pInputText formControlName="fname"> 
+                            <label class="required" for="fname">First Name</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                        <span class="p-float-label">
+                            <input type="text" id="lname" pInputText formControlName="lname"> 
+                            <label class="required" for="lname">Last Name</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-d-inline-block p-col-12 p-md-4">
+                        <span class="p-float-label">
+                            <input type="text" id="contact" pInputText formControlName="contact" [readOnly]="true"> 
+                            <label class="required" for="contact">Contact</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-d-inline-block p-col-12 p-md-4">
+                        <span class="p-float-label">
+                            <input type="text" id="email" pInputText formControlName="email"> 
+                            <label class="required" for="email">E-mail</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-d-inline-block p-col-12 p-md-4">
+                        <span class="p-float-label">
+                            <input type="text" id="telegramUsername" pInputText formControlName="telegramUsername" autocomplete="off"> 
+                            <label for="telegramUsername">Telegram Username<i class="pi pi-send p-ml-1"></i></label>
+                        </span>
+                    </div>
+                    <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                        <span class="p-float-label">
+                            <input type="password" id="password" pInputText formControlName="password"> 
+                            <label class="required" for="password">Password</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                        <span class="p-float-label">
+                            <input type="password" id="confirm_password" pInputText formControlName="confirm_password"> 
+                            <label class="required" for="confirm_password">Confirm Password</label>
+                        </span>
+                        <div *ngIf="piFormSubmitted && piFormControls.confirm_password.errors">
+                            <small *ngIf="piFormControls.confirm_password.errors && !piFormControls.confirm_password.errors.required && piFormControls.confirm_password.errors.mustMatch" class="p-error">Passwords do not match!</small>
+                        </div>
+                    </div>
+                    <div class="p-field p-d-inline-block p-col-12 p-md-12">
+                        <span class="p-float-label">
+                            <input type="text" id="address" pInputText formControlName="address"> 
+                            <label class="required" for="address">Address</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-d-inline-block p-col-12 p-md-4">
+                        <span class="p-float-label">
+                            <input type="text" id="city" pInputText formControlName="city"> 
+                            <label class="required" for="city">City</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-d-inline-block p-col-12 p-md-4">
+                        <span class="p-float-label">
+                            <p-dropdown inputId="state" [autoDisplayFirst]="false" [options]="states" formControlName="state" optionLabel="name"></p-dropdown>
+                            <label class="required" for="state">State</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-d-inline-block p-col-12 p-md-4">
+                        <span class="p-float-label">
+                            <input type="text" id="pincode" pInputText formControlName="pincode"> 
+                            <label class="required" for="pincode">Pincode</label>
+                        </span>
+                    </div>
+                    <div class="p-col-12 p-md-12 p-d-inline-block">
+                        <span *ngIf="piFormSubmitted && ((piFormControls.address.errors && piFormControls.address.errors.required) || (piFormControls.fname.errors && piFormControls.fname.errors.required) || (piFormControls.lname.errors && piFormControls.lname.errors.required) || (piFormControls.contact.errors && piFormControls.contact.errors.required) || (piFormControls.email.errors && piFormControls.email.errors.required) || (piFormControls.city.errors && piFormControls.city.errors.required) || (piFormControls.state.errors && piFormControls.state.errors.required) || (piFormControls.pincode.errors && piFormControls.pincode.errors.required)); else else1" class="p-error">*Enter all the required fields</span>
+                        <ng-template #else1>
+                            <span *ngIf="piFormSubmitted && piFormControls.email.errors && piFormControls.email.errors.exists; else else2" class="p-error">Email is already in use. Please try another!</span>
+                        </ng-template>
+                        <ng-template #else2>
+                            <span *ngIf="piFormSubmitted && piFormControls.contact.errors && piFormControls.contact.errors.exists" class="p-error">Password & Confirm password do not match!</span>
+                        </ng-template>
+                    </div>
+                    <div class="p-col-12 p-md-12 p-d-inline-block">
+                        <button pButton pRipple class="p-button-outlined p-button-secondary" icon="pi pi-angle-left" label="Back" type="button" (click)="goBack('si')" style="width: auto;"></button>
+                        <button pButton pRipple class="p-button-outlined"  label="Next" icon="pi pi-angle-right" iconPos="right" type="submit" style="width: auto; float: right;"></button>
+                    </div>
+                </form>
+
+                <form *ngIf="currStep == 'camera'" style="width: 100%; padding: 2% 5%;" [formGroup]="cameraForm" (submit)="submitCameraForm(cameraForm.value)">
+                    <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                        <span class="p-float-label">
+                            <p-dropdown inputId="camera" [autoDisplayFirst]="false" [options]="cameras" formControlName="camera" optionLabel="name"></p-dropdown>
+                            <label class="required" for="camera">Camera</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                        <span class="p-float-label">
+                            <input type="number" id="cameraCount" pInputText formControlName="cameraCount"> 
+                            <label class="required" for="cameraCount">Camera Count</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                        <span class="p-float-label">
+                            <p-dropdown inputId="dvr" [autoDisplayFirst]="false" [options]="dvrs" formControlName="dvr" optionLabel="name"></p-dropdown>
+                            <label class="required" for="dvr">DVR</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                        <span class="p-float-label">
+                            <input type="number" id="dvrCount" pInputText formControlName="dvrCount"> 
+                            <label class="required" for="dvrCount">DVR</label>
+                        </span>
+                    </div>
+                    <div class="p-col-12 p-md-12 p-d-inline-block">
+                        <span *ngIf="cameraFormSubmitted && ((cameraFormControls.camera.errors && cameraFormControls.camera.errors.required) || (cameraFormControls.cameraCount.errors && cameraFormControls.cameraCount.errors.required) || (cameraFormControls.dvr.errors && cameraFormControls.dvr.errors.required) || (cameraFormControls.dvrCount.errors && cameraFormControls.dvrCount.errors.required))" class="p-error">*Enter all the required fields</span>
+                    </div>
+                    <div class="p-col-12 p-md-12">
+                        <button pButton pRipple class="p-button-outlined p-button-secondary" icon="pi pi-angle-left" label="Back" type="button" (click)="goBack('pi')" style="width: auto;"></button>
+                        <button pButton pRipple class="p-button-outlined"  label="Next" icon="pi pi-angle-right" iconPos="right" type="submit" style="width: auto; float: right;"></button>
+                    </div>
+                </form>
+
+                <form *ngIf="currStep == 'plan'" style="width: 100%; padding: 2% 5%;" [formGroup]="planForm" (submit)="submitPlanForm(planForm.value)">
+                    <div class="p-field p-d-inline-block p-col-12">
+                        <span class="p-float-label">
+                            <p-dropdown inputId="selectedPlan" [autoDisplayFirst]="false" [options]="plans" formControlName="selectedPlan" optionLabel="name"></p-dropdown>
+                            <label class="required" for="selectedPlan">Select Plan</label>
+                        </span>
+                        <div *ngIf="planFormSubmitted && planFormControls.selectedPlan.errors">
+                            <small *ngIf="planFormControls.selectedPlan.errors && planFormControls.selectedPlan.errors.required" class="p-error">Plan is required!</small>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-md-12 p-d-inline-block">
+                        <span *ngIf="planFormSubmitted && planFormControls.selectedPlan.errors && planFormControls.selectedPlan.errors.required" class="p-error">*Enter all the required fields</span>
+                    </div>
+                    <div class="p-col-12 p-md-12">
+                        <button pButton pRipple class="p-button-outlined p-button-secondary" icon="pi pi-angle-left" label="Back" type="button" (click)="goBack('camera')" style="width: auto;"></button>
+                        <button pButton pRipple class="p-button-outlined p-button-success"  label="Save" icon="pi pi-angle-right" iconPos="right" type="submit" style="width: auto; float: right;"></button>
+                    </div>
+                </form>
+            </p-card>
+        </div>
+    </div>
+</div>
+
+<p-toast></p-toast>

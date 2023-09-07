@@ -1,0 +1,163 @@
+<p-menubar [model]="items" styleClass="dashboard-menu">
+    <ng-template pTemplate="start">
+        <img src="assets/landing/logo.svg" class="p-mr-2" style="cursor: pointer;" [routerLink]="['']">
+    </ng-template>
+</p-menubar>
+
+<p-dialog class="login-dialog" [(visible)]="showProfileDialog" [style]="{width: '50vw'}" [modal]="true">
+    <ng-template pTemplate="header">
+        Profile Details
+    </ng-template>
+    <div class="p-grid p-fluid p-pt-4">
+        <form style="width: 100%;" [formGroup]="profileForm" (submit)="submitProfileForm(profileForm.value)">
+            <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <input type="text" id="fname" pInputText formControlName="fname"> 
+                    <label class="required" for="fname">First Name</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <input type="text" id="lname" pInputText formControlName="lname"> 
+                    <label class="required" for="lname">Last Name</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <input type="text" id="contact" pInputText formControlName="contact" [readOnly]="true" style="width: 90%;"> 
+                    <label class="required" for="contact">Contact</label>
+                    <button pButton type="button" class="p-button-text p-button-warning" icon="pi pi-pencil" title="Edit Contact" (click)="editContact()" style="width: 9%;"></button>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <input type="text" id="email" pInputText formControlName="email"> 
+                    <label class="required" for="email">E-mail</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <input type="text" id="address" pInputText formControlName="address"> 
+                    <label class="required" for="address">Address</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input type="text" id="city" pInputText formControlName="city"> 
+                    <label class="required" for="city">City</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-dropdown inputId="state" [autoDisplayFirst]="false" [options]="states" formControlName="state" optionLabel="name"></p-dropdown>
+                    <label class="required" for="state">State</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input type="text" id="pincode" pInputText formControlName="pincode"> 
+                    <label class="required" for="pincode">Pincode</label>
+                </span>
+            </div>
+            <div class="p-col-12 p-md-12 p-d-inline-block">
+                <span *ngIf="profileFormSubmitted && ((profileFormControls.address.errors && profileFormControls.address.errors.required) || (profileFormControls.fname.errors && profileFormControls.fname.errors.required) || (profileFormControls.lname.errors && profileFormControls.lname.errors.required) || (profileFormControls.contact.errors && profileFormControls.contact.errors.required) || (profileFormControls.email.errors && profileFormControls.email.errors.required) || (profileFormControls.city.errors && profileFormControls.city.errors.required) || (profileFormControls.state.errors && profileFormControls.state.errors.required) || (profileFormControls.pincode.errors && profileFormControls.pincode.errors.required)); else else1" class="p-error">*Enter all the required fields</span>
+                <ng-template #else1>
+                    <span *ngIf="profileFormSubmitted && profileFormControls.email.errors && profileFormControls.email.errors.exists" class="p-error">Email is already in use. Please try another!</span>
+                </ng-template>
+            </div>
+            <div class="p-col-12 p-md-6 p-d-inline-block">
+                <button pButton pRipple class="p-button-outlined p-button-help" label="Change Password" icon="pi pi-unlock" type="button" (click)="changePassword()" style="width: auto;"></button>
+            </div>
+            <div class="p-col-12 p-md-6 p-text-right p-d-inline-block">
+                <button pButton pRipple class="p-button-outlined p-button-secondary" label="Cancel" type="button" (click)="showProfileDialog = false;" style="width: auto;"></button>
+                <button pButton pRipple class="p-button-outlined" label="Update" type="submit" style="width: auto; margin-left: 15px;"></button>
+            </div>
+        </form>
+    </div>
+</p-dialog>
+
+<p-dialog class="login-dialog" [(visible)]="showPasswordDialog" [style]="{width: '45vw'}" [modal]="true">
+    <ng-template pTemplate="header">
+        Change Password
+    </ng-template>
+    <div class="p-grid p-fluid p-pt-4">
+        <form style="width: 100%;" [formGroup]="passwordForm" (submit)="submitPasswordForm(passwordForm.value)">
+            <div class="p-field p-d-inline-block p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <input type="text" id="currPassword" pInputText formControlName="currPassword"> 
+                    <label class="required" for="currPassword">Current Password</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <input type="text" id="newPassword" pInputText formControlName="newPassword"> 
+                    <label class="required" for="newPassword">New Password</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <input type="text" id="confirmNewPassword" pInputText formControlName="confirmNewPassword"> 
+                    <label class="required" for="confirmNewPassword">Confirm New Password</label>
+                </span>
+            </div>
+            <div class="p-col-12 p-md-6 p-d-inline-block">
+                <span *ngIf="passwordFormSubmitted && ((passwordFormControls.currPassword.errors && passwordFormControls.currPassword.errors.required) || (passwordFormControls.newPassword.errors && passwordFormControls.newPassword.errors.required) || (passwordFormControls.confirmNewPassword.errors && passwordFormControls.confirmNewPassword.errors.required)); else else2" class="p-error">*Enter all the required fields</span>
+                <ng-template #else2>
+                    <span *ngIf="passwordFormSubmitted && passwordFormControls.currPassword.errors && passwordFormControls.currPassword.errors.mustMatch; else else3" class="p-error">Wrong current password!</span>
+                </ng-template>
+                <ng-template #else3>
+                    <span *ngIf="passwordFormSubmitted && passwordFormControls.confirmNewPassword.errors && passwordFormControls.confirmNewPassword.errors.mustMatch" class="p-error">New password & Confirm new password do not match!</span>
+                </ng-template>
+            </div>
+            <div class="p-col-12 p-md-6 p-text-right p-d-inline-block">
+                <button pButton pRipple class="p-button-outlined p-button-secondary" label="Cancel" type="button" (click)="showPasswordDialog = false;" style="width: auto;"></button>
+                <button pButton pRipple class="p-button-outlined" label="Update" type="submit" style="width: auto; margin-left: 15px;"></button>
+            </div>
+        </form>
+    </div>
+</p-dialog>
+
+<p-dialog class="login-dialog" [(visible)]="showContactDialog" [style]="{width: '45vw'}" [modal]="true">
+    <ng-template pTemplate="header">
+        Change Contact
+    </ng-template>
+    <div class="p-grid p-fluid p-pt-4">
+        <form style="width: 100%;" [formGroup]="contactForm" (submit)="submitContactForm(contactForm.value)">
+            <div class="p-field p-d-inline-block p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <input type="text" id="contact" pInputText formControlName="contact"> 
+                    <label class="required" for="contact">Contact</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <p-inputMask id="otp" mask="9-9-9-9" formControlName="otp" [disabled]="!otpSent"></p-inputMask>
+                    <label class="required" for="otp">OTP</label>
+                </span>
+            </div>
+            <div class="p-col-12" *ngIf="otpSent">
+                <p-messages severity="info" *ngIf="!showResend">
+                    <ng-template pTemplate>
+                        <div class="p-ml-2">Resend OTP in {{resendSecCount}} seconds.</div>
+                    </ng-template>
+                </p-messages>
+                <a href="javascript:;" *ngIf="showResend" (click)="resendOTP(contactForm.value)" style="color: #fff;">Resend OTP</a>
+            </div>
+            <div class="p-col-12 p-md-6 p-d-inline-block">
+                <span *ngIf="contactFormSubmitted && ((contactFormControls.contact.errors && contactFormControls.contact.errors.required) || (contactFormControls.otp.errors && contactFormControls.otp.errors.required)); else else4" class="p-error">*Enter all the required fields</span>
+                <ng-template #else4>
+                    <span *ngIf="contactFormSubmitted && contactFormControls.contact.errors && contactFormControls.contact.errors.exists; else else5" class="p-error">Contact number already in use. Please try another!</span>
+                </ng-template>
+                <ng-template #else5>
+                    <span *ngIf="contactFormSubmitted && !contactFormControls.otp.errors && invalidOTP" class="p-error">Wrong OTP or contact number mismatched. Please try again!</span>
+                </ng-template>
+            </div>
+            <div class="p-col-12 p-md-6 p-text-right p-d-inline-block">
+                <button pButton pRipple class="p-button-outlined p-button-secondary" label="Cancel" type="button" (click)="showContactDialog = false;" style="width: auto;"></button>
+                <button pButton pRipple class="p-button-outlined" label="{{otpSent ? 'Update' : 'Send OTP'}}" type="submit" style="width: auto; margin-left: 15px;"></button>
+            </div>
+        </form>
+    </div>
+</p-dialog>
+
+<p-toast></p-toast>

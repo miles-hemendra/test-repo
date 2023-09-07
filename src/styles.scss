@@ -1,0 +1,302 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0;
+    font: normal normal medium Montserrat;
+    overflow-x: hidden;
+    background: #000;
+}
+
+.p-menubar-start img {
+    height: 80px;
+}
+
+// .p-menubar-root-list {
+//     position: relative;
+//     left: calc(100% - 355px);
+// }
+
+// .p-menubar-root-list {
+//     justify-content: space-between;
+// }
+
+// .p-menubar-root-list:first-of-type > li:last-child { order: -1; }
+p-menubarsub {
+    width: 100%;
+}
+
+.p-menubar-root-list {
+    justify-content: flex-end;
+}
+
+.p-menubar .p-menuitem {
+    padding: 0 1.5vh;
+}
+
+.sticky-header .p-menubar {
+    padding: 1% 4%;
+    background: #000000;
+    -webkit-transition: padding .5s ease-out;
+    -moz-transition: padding .5s ease-out;
+    -o-transition: padding .5s ease-out;
+    transition: padding .5s ease-out;
+}
+
+#landing-page {
+    background: #000000;
+}
+
+.sections-parent {
+    color: #fff;
+    padding: 1% 4%;
+}
+
+.first-section {
+    position: relative;
+}
+
+.first-section .p-col-12 {
+    position: relative;
+}
+
+.first-section .p-col-12:first-child {
+    padding: 10vh 10vh 10vh 0vh;
+}
+
+.first-section .p-col-12:first-child p {
+    font-size: 20px;
+    padding-right: 15vh;
+}
+
+.first-section .p-col-12:nth-child(2) img:first-child {
+    position: absolute;
+    left: -45%;
+    top: 5%;
+    z-index: 0;
+}
+
+.first-section .p-col-12:nth-child(2) img:nth-child(2) {
+    z-index: 1;
+    position: absolute;
+    top: 5vh;
+}
+
+.first-section .p-col-12:nth-child(2) img:nth-child(3) {
+    z-index: 1;
+    position: absolute;
+    top: -35%;
+    left: 35%;
+}
+
+.second-section {
+    position: relative;
+}
+
+.second-section img {
+    position: absolute;
+    top: 15%;
+    right: 50%;
+}
+
+.second-section .p-col-12 {
+    // background: transparent linear-gradient(334deg, #0A0A0A 0%, #3B3B3B 100%) 0% 0% no-repeat padding-box;
+    background: #000;
+    border: 1px solid #707070;
+    border-radius: 8px;
+    margin: 10% 10px;
+    padding: 1% 2%;
+    z-index: 1;
+    opacity: 0.9;
+    width: 48%;
+    // backdrop-filter: blur(50px);
+    // -webkit-backdrop-filter: blur(50px);
+}
+
+.second-section .p-col-12::before {
+    content: '';
+    margin: -35px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    filter: blur(20px);
+    z-index: -1;
+}
+
+.third-section {
+    position: relative;
+}
+
+.third-section .dotted-bg {
+    position: absolute;
+    left: 35%;
+    bottom: 75%;
+}
+
+.third-section .house-img {
+    width: 100%;
+}
+
+.fourth-section iframe {
+    width: 100%;
+    height: 480px;
+    margin-top: 45px;
+    border: 0;
+    border-radius: 25px;
+    margin-bottom: 12%;
+}
+
+.fifth-section {
+    position: relative;
+}
+
+.fifth-section img {
+    position: absolute;
+    right: 65%;
+    transform: rotate(-10deg);
+    top: 20%;
+}
+
+.fifth-section .parent-box {
+    background: transparent linear-gradient(238deg, #0A1A45 0%, #041322 100%) 0% 0% no-repeat padding-box;
+    border: 1px solid #0A9DEA;
+    border-radius: 6px;
+    opacity: 1;
+    z-index: 1;
+    padding: 5%;
+    margin-bottom: 10%;
+}
+
+.fifth-section .parent-box .p-col-12 {
+    padding: 0 5%;
+}
+
+.fifth-section .parent-box input, .fifth-section .parent-box textarea {
+    display: block;
+    margin-bottom: 5%;
+    width: 100%;
+    background: #010A21 0% 0% no-repeat padding-box;
+    border-radius: 4px;
+}
+
+.fifth-section .parent-box button {
+    float: right;
+}
+
+.gradient-btn {
+    background: transparent linear-gradient(270deg,#0b3571,#00c0c0) 0 0 no-repeat padding-box !important;
+}
+
+.gradient-btn:hover {
+    background: transparent linear-gradient(90deg,#0b3571,#00c0c0) 0 0 no-repeat padding-box !important;
+}
+
+.sixth-section, .footer-section {
+    color: #fff;
+}
+
+.sixth-section {
+    background: #191818 0% 0% no-repeat padding-box;
+    padding: 1% 10%;
+    text-align: center;
+}
+
+.sixth-section .p-col:not(:last-child) {
+    border-right: 1px solid #333;
+}
+
+.sixth-section span {
+    margin-left: 10px;
+    position: relative;
+    bottom: 10px;
+}
+
+.footer-section {
+    padding: 1% 15%;
+}
+
+.login-modal .p-dialog-mask {
+    z-index: 1000;
+}
+
+.login-modal .p-dialog {
+    width: 50vw;
+}
+
+.login-modal .p-dialog input {
+    width: 100%;
+}
+
+// .p-text-right {
+//     text-align: right;
+// }
+
+.dashboard-menu.p-menubar.p-component {
+    background: #1e1e1e;
+    padding: 1% 5% !important;
+}
+
+.dashboard-page {
+    padding: 10% 10% 2% 10%;
+}
+
+.dashboard-page .p-card.p-component {
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.dashboard-page .p-card.p-component:hover {
+    box-shadow: 0 0px 25px 5px rgb(76 153 178);
+    color: rgb(76 153 178);
+}
+
+.p-autocomplete, .p-autocomplete .p-autocomplete-input, .p-inputtext, .p-dropdown {
+    width: 100%;
+}
+
+#piForm .p-field {
+    height: 80px;
+}
+
+.required::after {
+    content: '*';
+    color: #ef9a9a;
+}
+
+@media screen and (min-width : 1280px) {
+    
+}
+
+@media screen and (max-width : 1280px) {
+    .p-menubar-start img {
+        height: 50px;
+    }
+
+    p-menubarsub {
+        width: auto;
+    }
+
+    .login-modal .p-dialog-mask .p-dialog {
+        width: 85vw;
+    }
+}
+
+@media screen and (min-width: 1366px) {
+    .sections-parent {
+        padding: 1% 15%;
+    }
+
+    .p-menubar {
+        padding: 2% 16% !important;
+    }
+
+    .sticky-header .p-menubar {
+        padding: 1% 15% !important;
+    }
+}
+
+@media screen and (max-width: 1366px) {
+    .login-modal .p-dialog-mask .p-dialog {
+        width: 75vw;
+    }
+}

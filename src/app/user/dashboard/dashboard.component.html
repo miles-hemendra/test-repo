@@ -1,0 +1,23 @@
+<app-header></app-header>
+
+<div class="p-grid dashboard-page">
+    <div class="p-col-4 p-text-center">
+        <p-card [routerLink]="['/user/cases/new']">
+            <h1>New Cases</h1>
+            <h3>{{dashboardData ? dashboardData.newCaseCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-4 p-text-center">
+        <p-card [routerLink]="['/user/cases/open']">
+            <h1>Open Cases</h1>
+            <h3>{{dashboardData ? dashboardData.openCaseCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-4 p-text-center">
+        <p-card [routerLink]="['/user/cases/closed']">
+            <h1>Closed Cases</h1>
+            <h3>{{dashboardData ? dashboardData.closedCaseCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-2"></div>
+</div>

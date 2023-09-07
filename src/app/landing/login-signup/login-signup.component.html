@@ -1,0 +1,69 @@
+<p-dialog [(visible)]="showLoginDialog" class="login-modal">
+    <ng-template pTemplate="header">
+        {{otpLogin ? 'Login / Signup' : 'Login'}}
+    </ng-template>
+    <div *ngIf="!otpLogin" class="p-grid">
+        <form style="width: 100%; margin-top: 25px;" [formGroup]="loginForm" (submit)="submitLoginForm(loginForm.value)">
+            <div class="p-field p-d-inline-block p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <input type="text" id="contact" pInputText formControlName="contact"> 
+                    <label class="required" for="contact">E-mail / Contact</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <input type="password" id="password" pInputText formControlName="password"> 
+                    <label class="required" for="password">Password</label>
+                </span>
+            </div>
+            <div class="p-col-12 p-md-6 p-d-inline-block">
+                <span *ngIf="loginFormSubmitted && ((loginFormControls.contact.errors && loginFormControls.contact.errors.required) || (loginFormControls.password.errors && loginFormControls.password.errors.required)); else else2" class="p-error">*Enter both email/contact and password</span>
+                <ng-template #else2>
+                    <span *ngIf="loginFormSubmitted && !loginFormControls.password.errors && invalidLogin" class="p-error">Wrong credentials. Please try again!</span>
+                </ng-template>
+            </div>
+            <div class="p-col-12 p-md-6 p-d-inline-block p-text-right">
+                <button pButton pRipple class="gradient-btn" label="Login" type="submit"></button>
+            </div>
+        </form>
+    </div>
+    <div class="p-grid" *ngIf="otpLogin">
+        <form style="width: 100%; margin-top: 25px;" [formGroup]="otpForm" (submit)="submitOtpForm(otpForm.value)">
+            <div class="p-field p-d-inline-block p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <input type="text" id="contact" pInputText formControlName="contact"> 
+                    <label class="required" for="contact">Contact</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <p-inputMask id="otp" mask="9-9-9-9" formControlName="otp" [disabled]="!otpSent"></p-inputMask>
+                    <label class="required" for="otp">OTP</label>
+                </span>
+            </div>
+            <div class="p-col-12" *ngIf="otpSent">
+                <p-messages severity="info" *ngIf="!showResend">
+                    <ng-template pTemplate>
+                        <div class="p-ml-2">Resend OTP in {{resendSecCount}} seconds.</div>
+                    </ng-template>
+                </p-messages>
+                <a href="javascript:;" *ngIf="showResend" (click)="resendOTP(otpForm.value)" style="color: #fff;">Resend OTP</a>
+            </div>
+            <div class="p-col-12 p-md-6 p-d-inline-block">
+                <span *ngIf="otpFormSubmitted && ((otpFormControls.contact.errors && otpFormControls.contact.errors.required) || (otpFormControls.password.errors && otpFormControls.password.errors.required)); else else2" class="p-error">*Enter both contact and OTP</span>
+                <ng-template #else2>
+                    <span *ngIf="otpFormSubmitted && !otpFormControls.otp.errors && invalidOtp" class="p-error">Wrong OTP . Please try again!!</span>
+                </ng-template>
+            </div>
+            <div class="p-col-12 p-md-6 p-d-inline-block p-text-right">
+                <button pButton pRipple class="gradient-btn" label="{{otpSent ? 'Submit' : 'Send OTP'}}" type="submit"></button>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <div class="p-grid">
+        <div class="p-col p-text-center">
+            <button type="button" pButton pRipple label="{{otpLogin ? 'Login using password' : 'Login / Signup using OTP'}}" (click)="otpLogin = !otpLogin" class="gradient-btn p-mt-2"></button>
+        </div>
+    </div>
+</p-dialog>

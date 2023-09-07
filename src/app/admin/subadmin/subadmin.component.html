@@ -1,0 +1,117 @@
+<app-header></app-header>
+
+<div class="dashboard-page p-grid">
+    <div class="p-col-12">
+        <button pButton pRipple class="p-button-outlined p-button-secondary" icon="pi pi-arrow-left" label="Go Back" type="button" [routerLink]="['/admin/dashboard']"></button>
+        <button pButton pRipple class="p-button-outlined" style="float: right;" icon="pi pi-user-add" label="Add Subadmin" type="button" (click)="addSubadmin()"></button>
+    </div>
+    <div class="p-col-12">
+        <p-table [columns]="cols" [value]="allSubadmin" empty>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns">
+                            {{
+                                col.field == 'name' ? rowData['fname']+' '+rowData['lname'] : 
+                                    (col.field == 'address' ? rowData['address']+', '+rowData['city']+', '+rowData['pincode'] : 
+                                        rowData[col.field])
+                            }}
+                    </td>
+                    <td>
+                        <button pButton pRipple class="p-button-outlined p-button-warning" icon="pi pi-user-edit" type="button"></button>
+                        <button pButton pRipple class="p-button-danger p-button-outlined p-ml-3" icon="pi pi-times" type="button"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="columns.length+1" class="p-text-center">
+                        No Subadmin found.
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<p-dialog class="login-dialog" [(visible)]="showAddSubadminDialog" [style]="{width: '75vw'}">
+    <ng-template pTemplate="header">
+        Add Subadmin
+    </ng-template>
+    <div class="p-grid p-fluid p-pt-4">
+        <form style="width: 100%;" [formGroup]="subadminForm" (submit)="submitSubadminForm(subadminForm.value)">
+            <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <input type="text" id="fname" pInputText formControlName="fname"> 
+                    <label class="required" for="fname">First Name</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <input type="text" id="lname" pInputText formControlName="lname"> 
+                    <label class="required" for="lname">Last Name</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <input type="text" id="contact" pInputText formControlName="contact"> 
+                    <label class="required" for="contact">Contact</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <input type="text" id="email" pInputText formControlName="email"> 
+                    <label class="required" for="email">E-mail</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <input type="text" id="address" pInputText formControlName="address"> 
+                    <label class="required" for="address">Address</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input type="text" id="city" pInputText formControlName="city"> 
+                    <label class="required" for="city">City</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-dropdown inputId="state" [autoDisplayFirst]="false" [options]="states" formControlName="state" optionLabel="name"></p-dropdown>
+                    <label class="required" for="state">State</label>
+                </span>
+            </div>
+            <div class="p-field p-d-inline-block p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input type="text" id="pincode" pInputText formControlName="pincode"> 
+                    <label class="required" for="pincode">Pincode</label>
+                </span>
+            </div>
+            <div class="p-col-12 p-md-6 p-d-inline-block">
+                <span *ngIf="subadminFormSubmitted && ((subadminFormControls.address.errors && subadminFormControls.address.errors.required) || (subadminFormControls.fname.errors && subadminFormControls.fname.errors.required) || (subadminFormControls.lname.errors && subadminFormControls.lname.errors.required) || (subadminFormControls.contact.errors && subadminFormControls.contact.errors.required) || (subadminFormControls.email.errors && subadminFormControls.email.errors.required) || (subadminFormControls.city.errors && subadminFormControls.city.errors.required) || (subadminFormControls.state.errors && subadminFormControls.state.errors.required) || (subadminFormControls.pincode.errors && subadminFormControls.pincode.errors.required)); else else1" class="p-error">*Enter all the required fields</span>
+                <ng-template #else1>
+                    <span *ngIf="subadminFormSubmitted && subadminFormControls.email.errors && subadminFormControls.email.errors.exists; else else2" class="p-error">Email is already in use. Please try another!</span>
+                </ng-template>
+                <ng-template #else2>
+                    <span *ngIf="subadminFormSubmitted && subadminFormControls.contact.errors && subadminFormControls.contact.errors.exists" class="p-error">Contact is already in use. Please try another!</span>
+                </ng-template>
+            </div>
+            <div class="p-col-12 p-md-6 p-d-inline-block p-text-right">
+                <button pButton pRipple class="p-button-outlined p-button-secondary" label="Cancel" type="button" (click)="showAddSubadminDialog = false;" style="width: auto;"></button>
+                <button pButton pRipple class="p-button-outlined" label="Add" type="submit" style="width: auto; margin-left: 15px;"></button>
+            </div>
+        </form>
+    </div>
+</p-dialog>
+
+<p-toast></p-toast>

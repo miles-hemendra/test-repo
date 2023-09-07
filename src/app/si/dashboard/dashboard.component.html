@@ -1,0 +1,36 @@
+<app-header></app-header>
+
+<div class="p-grid dashboard-page">
+    <div class="p-col-4 p-text-center">
+        <p-card [routerLink]="['/si/cases/new']">
+            <h1>New Cases</h1>
+            <h3>{{dashboardData ? dashboardData.newCaseCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-4 p-text-center">
+        <p-card [routerLink]="['/si/cases/open']">
+            <h1>Open Cases</h1>
+            <h3>{{dashboardData ? dashboardData.openCaseCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-4 p-text-center">
+        <p-card [routerLink]="['/si/cases/closed']">
+            <h1>Closed Cases</h1>
+            <h3>{{dashboardData ? dashboardData.closedCaseCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-2"></div>
+    <div class="p-col-4 p-text-center">
+        <p-card [routerLink]="['/si/customers']">
+            <h1>Customers</h1>
+            <h3>{{dashboardData ? dashboardData.usersCount : 0}}</h3>
+        </p-card>
+    </div>
+    <div class="p-col-4 p-text-center">
+        <p-card>
+            <h1>Earnings</h1>
+            <h3>0</h3>
+        </p-card>
+    </div>
+    <div class="p-col-2"></div>
+</div>

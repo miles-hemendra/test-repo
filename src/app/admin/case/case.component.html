@@ -1,0 +1,41 @@
+<app-header></app-header>
+
+<div class="dashboard-page p-grid">
+    <div class="p-col-12">
+        <button pButton pRipple class="p-button-outlined p-button-secondary" icon="pi pi-arrow-left" label="Go Back" type="button" [routerLink]="['/admin/dashboard']"></button>
+        <!-- <button pButton pRipple class="p-button-outlined" style="float: right;" icon="pi pi-user-add" label="Add SI" type="button" (click)="addSI()"></button> -->
+    </div>
+    <div class="p-col-12">
+        <p-table [columns]="cols" [value]="cases">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                    <th *ngIf="caseStatus !== 'closed'">
+                        Action
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns">
+                        {{col.field == 'user' ? rowData['user'].fname + ' ' + rowData['user'].lname : (col.field == 'userContact' ? rowData['user'].contact : (col.field == 'userEmail' ? rowData['user'].email : (col.field !== 'image' ? rowData[col.field] : '')))}}
+                        <button pButton *ngIf="col.field == 'image' && rowData['name'] == 'Motion Detection'" pRipple class="p-button-outlined p-button-rounded p-button-info" icon="pi pi-image" type="button" (click)="openImage(rowData['image'])"></button>
+                    </td>
+                    <td *ngIf="caseStatus !== 'closed'">
+                        <button pButton pRipple class="p-button-outlined {{caseStatus == 'open' ? 'p-button-success' : 'p-button-warning'}}" icon="pi {{caseStatus ==  'open' ? 'pi-check-circle' : 'pi-play'}}" iconPos="right" label="{{caseStatus == 'new' ? 'Set as Open' : (caseStatus == 'open' ? 'Set as Closed' : '')}}" type="button" (click)="changeCaseStatus(rowData['id'])"></button>
+                        <!-- <button pButton pRipple class="p-button-danger p-button-outlined p-ml-3" icon="pi pi-times" type="button"></button> -->
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="caseStatus !== 'closed' ? columns.length+1 : columns.length" class="p-text-center">
+                        No case found.
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
